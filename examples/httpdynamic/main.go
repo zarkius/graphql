@@ -6,9 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"os/signal"
 	"strconv"
-	"syscall"
 
 	"github.com/graphql-go/graphql"
 )
@@ -115,10 +113,6 @@ func importJSONDataFromFile(fileName string) error {
 }
 
 func main() {
-	// Catch SIGUSR1 and reload the data file
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, syscall.SIGUSR1)
-	go handleSIGUSR1(c)
 
 	err := importJSONDataFromFile(jsonDataFile)
 	if err != nil {
